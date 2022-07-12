@@ -1,0 +1,5 @@
+1)Wiki page: https://simple.wikipedia.org/wiki/RSA_algorithm
+
+2)book: data communication and networking(GTU) by J.S. Katre
+
+3)article: https://ima.org.uk/779/internet-shopping-stopping-the-scammers/

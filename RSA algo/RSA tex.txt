@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[dvipsnames]{xcolor}
+
+\begin{document}
+\huge{\underline{\textbf{\textcolor{red}{SC205(Discrete mathematics) Project}}}}
+\begin{center}
+\LARGE{\textbf{\textcolor{blue}{RSA(Rivest–Shamir–Adleman)Algorithm}}}\newline \newline
+ \textbf{Name: Chaudhari Sagar B.}\newline \newline\textbf{SID: 201901117}
+ \newline \newline \textbf{Instructor:Professor Manish K Gupta}
+\end{center}
+\Large{
+\textcolor{blue}{\section{Abstract}}
+Here i talk about an RSA(Rivest–Shamir–Adleman) algorithm which is used for secure communications.RSA algorithm contains discrete mathematics concept.
+
+ \textcolor{blue}{\section{Problem}}
+ The internet has revolutionised the way we shop. Customers can order goods and services without the need to leave the house but Fraudsters send out emails claiming to be from your bank. When you click on the link you are directed to a website which looks identical to the bank’s real website and through they stole our private information. 
+
+\textcolor{blue}{\section{Introduction}}
+The RSA algorithm is the basis of a cryptosystem, a suite of cryptographic algorithms that are used for specific security services or purposes which enables public key encryption and is widely used to secure sensitive data, particularly when it is being sent over an insecure network such as the internet.
+
+\textcolor{blue}{\section{An Analytical Solution}}
+RSA encryption is  a system that uses two separate kinds of key.\newline 1)public key.\newline 2)Private key.\newline \newline 
+RSA algorithm is as follow:\newline
+1) Take two very large prime number A an B.Product of A and B is N which is very large number.\newline 
+\begin{center}
+\begin{math}
+  N = A\times B.
+\end{math}
+\end{center}
+2) Subtract 1 From A and B and get Product T.\newline \newline
+\begin{center}
+\begin{math}
+  T = (A-1)\times(B-1).
+\end{math}
+\end{center}
+3) Choose a public key E randomly which doesn't have any common factors with T and obtain private key D as follows:\newline \newline
+\begin{center}
+        D = (\(1/E\) ) mod T.
+        \end{center}
+4) The rule for encryption of plaintext M into ciphertext C is as follows:\newline \newline
+\begin{center}
+        C = \(M^E\) mod N.
+        \end{center}
+        5) The mod term Equation indicates that the remainder of the division is sent as the ciphertext c as shown in fig 1.\newline \newline
+        6) The receieved message C at the receiver is decrypted to obtain plaintext back by using the following rule:\newline \newline
+        \begin{center}
+           M = \(C^D\) mod N.
+     \end{center}
+   \begin{figure}[h!]
+  \centering
+    \includegraphics[width=1.2\textwidth]{RSA}
+      \caption{ Encryption and Decryption in RSA}
+\end{figure}
+
+\textcolor{blue}{\section{Security of RSA}}
+The security of RSA is decided by the ability of the hacker computer factorize numbers.\newline
+RSA provides a very good security because it uses very large numbers A an B their product is so large that an attempt to break the code using the fastest computer will need a few years.\newline
+A key size of 768 bits is recommended for the personal use.1024 bits for the corporate use and 2048 bits for extremely valuable keys.\newline
+The user's key should be changed regularly in order to enhance security.\newline
+\textcolor{blue}{\section{Conclusion}}
+If we use this kind of algorithm in a security system then there is very low risk that your private information is being stolen from any site and we can buy any product from the internet without fear. \newline
+\textcolor{blue}{\section{References}}
+1) https://en.wikipedia.org/wiki/RSA\_(cryptosystem)\newline 2) book: data Communication and Networking(GTU) by J.S.Katre
+}
+\end{document}

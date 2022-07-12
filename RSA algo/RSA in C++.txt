@@ -1,0 +1,151 @@
+// RSA  Algorithm in C++
+#include<iostream>
+#include<math.h>
+#include<string.h>
+#include<stdlib.h>
+ 
+using namespace std;
+ 
+long int A,B,N,T,flag,E[50],D[50],temp[50],j,M[50],en[50],i;
+char msg[50];
+int prime(long int);
+void calculate_E();
+long int calculate_D(long int);
+void encryption();
+void decryption();     //A and B=prime numbers,N=A*B,T=(A-1)*(B-1),
+                   //E[100] and D[100] are array of possible Public and Private keys.
+                   //M[100] is a array of message. 
+                   
+int prime(long int pr)   //Cheking entered inputs A and B are prime or not.
+{
+    int i;
+    j=sqrt(pr);
+    for(i=2;i<=j;i++)
+    {
+        if(pr%i==0)
+            return 0;
+    }
+    return 1;
+}
+int main()
+{
+    cout<<"\nENTER FIRST PRIME NUMBER\n";
+    cin>>A;
+    flag=prime(A);
+    if(flag==0)
+    {
+        cout<<"\nWRONG INPUT\n";
+        exit(1);
+    }
+    cout<<"\nENTER ANOTHER PRIME NUMBER\n";
+    cin>>B;
+    flag=prime(B);
+    if(flag==0||A==B)
+    {
+        cout<<"\nWRONG INPUT\n";
+        exit(1);
+    }
+    cout<<"\nENTER MESSAGE\n";
+    fflush(stdin);
+    cin>>msg;
+    for(i=0;msg[i]!='\0';i++)
+        M[i]=msg[i];
+    N=A*B;
+    T=(A-1)*(B-1);
+    
+    calculate_E();
+    
+    cout<<"\nPOSSIBLE VALUES OF E AND D ARE\n";
+    for(i=0;i<j-1;i++)
+        cout<<E[i] << "\t" << D[i] << "\n";
+    encryption();
+    decryption();
+    return 0;
+}
+void calculate_E()
+{
+    int k;
+    k=0;
+    for(i=2;i<T;i++)
+    {
+        if(T%i==0)   //T % i=0 means i has a common factor with T
+                      //so we don't consider that public key and skip it.
+            continue;
+        flag=prime(i);
+        if(flag==1 && i!=A && i!=B)    
+        {
+            E[k]=i;
+            flag=calculate_D(i);
+            if (flag>0)
+            {
+                D[k]=flag;
+                k++;
+            }
+            if(k==49)
+                break;
+        }
+    }
+}
+long int calculate_D(long int x)
+{
+    long int k=1;
+    while(1)
+    {                      //D=(1/E) mod T.
+                         //so D*E mod T should be 1 
+                         //here,i'm taking k=1 at begining 
+                         //so if k % x= 0 (where x is a public key) then Private key D=k/x.
+                         //here,k vary possible private keys(D).
+        k=k+T; 
+        if(k%x==0)
+          return(k/x);
+    }
+}
+void encryption()
+{
+    long int pt,C,key=E[0],k,len;   //ct stands for ciphertext
+    i=0;
+    len=strlen(msg);
+    while(i!=len)
+    {
+        pt=M[i];
+        pt=pt-96;  
+        k=1;
+        for(j=0;j<key;j++)
+        {
+            k=k*pt;         //C=M^E mod N
+                             
+            k=k%N;
+        }
+        temp[i]=k;
+        C=k+96;
+        en[i]=C;
+        i++;
+    }
+    en[i]=-1;
+    cout<<"\nTHE ENCRYPTED MESSAGE IS\n";
+    for (i=0;en[i]!=-1;i++)
+        printf("%c",en[i]);
+}
+void decryption()
+{
+    long int pt,C,key=D[0],k;
+    i=0;
+    while(en[i]!=-1)
+    {
+        C=temp[i];
+        k=1;
+        for(j=0;j<key;j++)
+        {
+            k=k*C;         // M=C^D mod N
+                          
+            k=k%N;
+        }
+        pt=k+96;
+        M[i]=pt;
+        i++;
+    }
+    M[i]=-1;
+    cout<< "\nTHE DECRYPTED MESSAGE IS\n";
+    for(i=0;M[i]!=-1;i++)
+        printf("%c",M[i]);
+}
